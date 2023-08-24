@@ -39,3 +39,10 @@ jobs:
           cd ..
       - name: Copy to S3
         run: aws s3 cp ./s3-test.zip s3://githubactionstest0331/s3-test.zip
+      - name: Update Lambda
+        run: |
+          aws lambda update-function-code \
+          -- function-name testApi \
+          -- s3-bucket githubactionstest0331 \
+          -- s3-key s3-test.zip
+          -- publish
