@@ -42,7 +42,7 @@ jobs:
       - name: Update Lambda
         run: |
           aws lambda update-function-code \
-          -- function-name testApi \
-          -- s3-bucket githubactionstest0331 \
-          -- s3-key s3-test.zip
-          -- publish
+          --function-name testApi \
+          --s3-bucket githubactionstest0331 \
+          --s3-key s3-test.zip \
+          --publish
