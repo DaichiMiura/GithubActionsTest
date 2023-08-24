@@ -1,4 +1,6 @@
 import json
 
 def lambda_handler(event, context):
-  return json.dumps({"test": "test"})
+  print(event)
+  print(context)
+  return json.dumps({"event": event, "context": context})
