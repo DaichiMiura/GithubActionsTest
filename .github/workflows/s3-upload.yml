@@ -1,0 +1,41 @@
+name: S3 test
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_ROLE_ARN: arn:aws:iam::365601117407:role/GitHubActionsRole
+  STAGE: stg
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  s3_upload:
+    name: S3 Upload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Zip Lambda Resources
+        run: |
+          pip install --upgrade pip
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          cd .venv/lib/python3.11/site-packages
+          zip -r ../../../../s3-test.zip .
+          cd ../../../..
+          zip -g -r ../s3-test.zip .
+          cd ..
+      - name: Copy to S3
+        run: aws s3 cp ./s3-test.zip s3://githubactionstest0331/s3-test.zip
