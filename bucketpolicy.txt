@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::365601117407:role/GitHubActionsRole"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::githubactionstest0331/*"
+        }
+    ]
+}
