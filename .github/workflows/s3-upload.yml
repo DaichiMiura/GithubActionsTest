@@ -35,11 +35,7 @@ jobs:
           cd .venv/lib/python3.11/site-packages
           zip -r ../../../../s3-test.zip .
           cd ../../../../lambda/api
-          echo "test desu"
-          ls
-          ls ..
-          ls ../..
-          zip -g -r ../s3-test.zip .
+          zip -g -r ../../s3-test.zip .
           cd ..
       - name: Copy to S3
         run: aws s3 cp ./s3-test.zip s3://githubactionstest0331/s3-test.zip
